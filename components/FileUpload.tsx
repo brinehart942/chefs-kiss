@@ -2,7 +2,6 @@
 
 import { IKImage, ImageKitProvider, IKUpload, IKVideo } from "imagekitio-next";
 import config from "@/lib/config";
-import ImageKit from "imagekit";
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { toast } from "@/hooks/use-toast";
@@ -31,8 +30,9 @@ const authenticator = async () => {
     const { signature, expire, token } = data;
 
     return { token, expire, signature };
-  } catch (error: any) {
-    throw new Error(`Authentication request failed: ${error.message}`);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    throw new Error(`Authentication request failed: ${message}`);
   }
 };
 
@@ -70,7 +70,7 @@ const FileUpload = ({
     text: variant === "dark" ? "text-light-100" : "text-dark-400",
   };
 
-  const onError = (error: any) => {
+  const onError = (error: unknown) => {
     console.log(error);
 
     toast({
@@ -80,14 +80,17 @@ const FileUpload = ({
     });
   };
 
-  const onSuccess = (res: any) => {
-    setFile(res);
-    onFileChange(res.filePath);
+  const onSuccess = (res: unknown) => {
+    if (res && typeof res === "object" && "filePath" in res) {
+      const result = res as { filePath: string };
+      setFile(result);
+      onFileChange(result.filePath);
 
-    toast({
-      title: `${type} uploaded successfully`,
-      description: `${res.filePath} uploaded successfully!`,
-    });
+      toast({
+        title: `${type} uploaded successfully`,
+        description: `${result.filePath} uploaded successfully!`,
+      });
+    }
   };
 
   const onValidate = (file: File) => {
@@ -144,8 +147,7 @@ const FileUpload = ({
           e.preventDefault();
 
           if (ikUploadRef.current) {
-            // @ts-ignore
-            ikUploadRef.current?.click();
+            (ikUploadRef.current as HTMLInputElement).click();
           }
         }}
       >

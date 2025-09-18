@@ -22,11 +22,7 @@ import ColorPicker from "@/components/admin/ColorPicker";
 import { createBook } from "@/lib/admin/actions/book";
 import { toast } from "@/hooks/use-toast";
 
-interface Props extends Partial<Book> {
-  type?: "create" | "update";
-}
-
-const BookForm = ({ type, ...book }: Props) => {
+const BookForm = ({}: Partial<Book>) => {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof bookSchema>>({
