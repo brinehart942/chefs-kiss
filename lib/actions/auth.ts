@@ -6,23 +6,20 @@ import { users } from "@/database/schema";
 import { hash } from "bcryptjs";
 import { signIn } from "@/auth";
 import { headers } from "next/headers";
-import ratelimit from "../ratelimit";
+import ratelimit from "@/lib/ratelimit";
 import { redirect } from "next/navigation";
+import { workflowClient } from "@/lib/workflow";
 import config from "@/lib/config";
-import { workflowClient } from "../workflow";
 
 export const signInWithCredentials = async (
-  params: Pick<AuthCredentials, "email" | "password">
+  params: Pick<AuthCredentials, "email" | "password">,
 ) => {
   const { email, password } = params;
 
   const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
-
   const { success } = await ratelimit.limit(ip);
 
-  if (!success) {
-    return redirect("/too-fast");
-  }
+  if (!success) return redirect("/too-fast");
 
   try {
     const result = await signIn("credentials", {
@@ -35,27 +32,21 @@ export const signInWithCredentials = async (
       return { success: false, error: result.error };
     }
 
-    return { success: true, message: "Sign in successful" };
-
-    return { success: true, message: "Sign in successful" };
+    return { success: true };
   } catch (error) {
-    console.log(error, "Sign in Error");
-    return { success: false, error: "Sign in Error" };
+    console.log(error, "Signin error");
+    return { success: false, error: "Signin error" };
   }
 };
 
 export const signUp = async (params: AuthCredentials) => {
-  const { fullName, email, universityId, universityCard, password } = params;
+  const { fullName, email, universityId, password, universityCard } = params;
 
   const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
-
   const { success } = await ratelimit.limit(ip);
 
-  if (!success) {
-    return redirect("/too-fast");
-  }
+  if (!success) return redirect("/too-fast");
 
-  // Check if user already exists
   const existingUser = await db
     .select()
     .from(users)
@@ -66,7 +57,6 @@ export const signUp = async (params: AuthCredentials) => {
     return { success: false, error: "User already exists" };
   }
 
-  // Hash password
   const hashedPassword = await hash(password, 10);
 
   try {
@@ -74,8 +64,8 @@ export const signUp = async (params: AuthCredentials) => {
       fullName,
       email,
       universityId,
-      universityCard,
       password: hashedPassword,
+      universityCard,
     });
 
     await workflowClient.trigger({
@@ -88,9 +78,9 @@ export const signUp = async (params: AuthCredentials) => {
 
     await signInWithCredentials({ email, password });
 
-    return { success: true, message: "User created successfully" };
+    return { success: true };
   } catch (error) {
-    console.log(error, "Error in signUp");
-    return { success: false, error: "Error in signUp: " };
+    console.log(error, "Signup error");
+    return { success: false, error: "Signup error" };
   }
 };
