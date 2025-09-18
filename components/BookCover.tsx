@@ -2,7 +2,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import BookCoverSvg from "@/components/BookCoverSvg";
+import BookCoverSvg from "@/components/BookCoverSVG";
 import { IKImage } from "imagekitio-next";
 import config from "@/lib/config";
 
@@ -34,7 +34,7 @@ const BookCover = ({
       className={cn(
         "relative transition-all duration-300",
         variantStyles[variant],
-        className,
+        className
       )}
     >
       <BookCoverSvg coverColor={coverColor} />
