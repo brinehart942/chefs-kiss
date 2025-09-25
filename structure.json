@@ -1,0 +1,1950 @@
+{
+  "pages_by_audience": {
+    "unauthenticated": [
+      {
+        "name": "Home / Discover",
+        "purpose": "Landing and trending discovery",
+        "key_components": [
+          "HeroRail",
+          "TrendingRecipes",
+          "FeaturedChefs",
+          "CTARegister",
+          "SearchBar"
+        ],
+        "primary_actions": [
+          "Search",
+          "OpenRecipe",
+          "OpenChef",
+          "SignUp",
+          "SignIn"
+        ],
+        "role_visibility": ["unauthenticated"],
+        "feature_flags": [],
+        "data_entities": ["recipe", "chef", "collection"],
+        "events": [
+          "home_view",
+          "cta_signup_click",
+          "discover_scroll",
+          "recipe_card_click"
+        ],
+        "entry_points": ["direct", "seo", "share_link"],
+        "dependencies": ["cdn", "search_index"],
+        "edge_cases": ["empty_trending", "geo_variant"],
+        "seo_route": "/",
+        "mobile_variants": ["tab_home"]
+      },
+      {
+        "name": "Search",
+        "purpose": "Find recipes/chefs",
+        "key_components": [
+          "SearchBar",
+          "QuickFilters",
+          "ResultsGrid",
+          "CategoryChips"
+        ],
+        "primary_actions": [
+          "Search",
+          "ApplyFilter",
+          "OpenRecipe",
+          "OpenChef",
+          "SignUp"
+        ],
+        "role_visibility": ["unauthenticated"],
+        "feature_flags": [],
+        "data_entities": ["recipe", "chef", "tag"],
+        "events": ["search_view", "search_execute", "filter_apply"],
+        "entry_points": ["nav", "seo", "deep_link"],
+        "dependencies": ["search_index"],
+        "edge_cases": ["no_results"],
+        "seo_route": "/search",
+        "mobile_variants": ["tab_search"]
+      },
+      {
+        "name": "Recipe Detail",
+        "purpose": "View recipe and prompts to join",
+        "key_components": [
+          "HeroMedia",
+          "Ingredients",
+          "Steps",
+          "NutritionSummary",
+          "ChefAttribution",
+          "SaveCTA",
+          "StartCookingCTA"
+        ],
+        "primary_actions": ["Save", "FollowChef", "StartCooking", "SignUp"],
+        "role_visibility": ["unauthenticated"],
+        "feature_flags": [],
+        "data_entities": ["recipe", "chef", "review"],
+        "events": ["recipe_view_public", "cta_signup_from_recipe"],
+        "entry_points": ["seo", "share_link", "search_results"],
+        "dependencies": ["cdn"],
+        "edge_cases": ["removed_dmca", "age_gated"],
+        "seo_route": "/recipe/:slug",
+        "mobile_variants": ["stack_recipe_detail"]
+      },
+      {
+        "name": "Chef Profile",
+        "purpose": "Show chef bio and catalog",
+        "key_components": [
+          "ChefHeader",
+          "FollowCTA",
+          "RecipeGrid",
+          "ProductsRail"
+        ],
+        "primary_actions": ["Follow", "OpenRecipe", "OpenProduct", "SignUp"],
+        "role_visibility": ["unauthenticated"],
+        "feature_flags": [],
+        "data_entities": ["chef", "recipe", "product"],
+        "events": ["chef_profile_view_public", "follow_click_logged_out"],
+        "entry_points": ["seo", "share_link", "discover"],
+        "dependencies": ["cdn"],
+        "edge_cases": ["empty_catalog"],
+        "seo_route": "/chef/:handle",
+        "mobile_variants": ["stack_profile_public"]
+      },
+      {
+        "name": "Marketplace",
+        "purpose": "Browse paid cookbooks/courses",
+        "key_components": ["CategoryTabs", "ProductCards", "HeroPromo"],
+        "primary_actions": ["OpenProduct", "SignUp", "AddToCart"],
+        "role_visibility": ["unauthenticated"],
+        "feature_flags": [],
+        "data_entities": ["product", "chef"],
+        "events": ["marketplace_view_public", "product_card_click_public"],
+        "entry_points": ["nav", "seo", "ads"],
+        "dependencies": ["payments_display"],
+        "edge_cases": ["no_inventory"],
+        "seo_route": "/marketplace",
+        "mobile_variants": ["tab_marketplace"]
+      },
+      {
+        "name": "Auth",
+        "purpose": "Sign up / sign in",
+        "key_components": ["EmailPasswordForm", "SSOButtons", "LegalLinks"],
+        "primary_actions": ["Register", "Login", "ResetPassword"],
+        "role_visibility": ["unauthenticated"],
+        "feature_flags": [],
+        "data_entities": ["user"],
+        "events": ["auth_view", "signup_complete", "login_complete"],
+        "entry_points": ["cta", "paywall", "deep_link"],
+        "dependencies": ["apple_sso", "google_sso"],
+        "edge_cases": ["rate_limited", "email_unverified"],
+        "seo_route": "/auth",
+        "mobile_variants": ["modal_auth"]
+      }
+    ],
+    "member_free": [
+      {
+        "name": "Home / Discover",
+        "purpose": "Personalized discovery",
+        "key_components": [
+          "HeroRail",
+          "FollowingRail",
+          "TrendingRecipes",
+          "RecForYou"
+        ],
+        "primary_actions": ["Search", "OpenRecipe", "OpenChef", "Save"],
+        "role_visibility": ["member_free"],
+        "feature_flags": [],
+        "data_entities": ["recipe", "chef", "user_pref"],
+        "events": ["home_view_authed"],
+        "entry_points": ["nav", "push", "email"],
+        "dependencies": ["search_index"],
+        "edge_cases": ["empty_following"],
+        "seo_route": "/",
+        "mobile_variants": ["tab_home"]
+      },
+      {
+        "name": "Recipe Detail",
+        "purpose": "Cook, save, rate",
+        "key_components": [
+          "HeroMedia",
+          "Ingredients",
+          "Steps",
+          "NutritionSummary",
+          "StartCooking",
+          "SaveButton",
+          "RatingStars",
+          "Comments"
+        ],
+        "primary_actions": ["StartCooking", "Save", "Rate", "Comment"],
+        "role_visibility": ["member_free"],
+        "feature_flags": [],
+        "data_entities": ["recipe", "review", "comment"],
+        "events": ["recipe_view", "start_cooking_click", "save_click"],
+        "entry_points": ["discover", "search", "share_link"],
+        "dependencies": ["cdn"],
+        "edge_cases": ["removed_dmca", "paywalled_paid_recipe"],
+        "seo_route": null,
+        "mobile_variants": ["stack_recipe_detail"]
+      },
+      {
+        "name": "Meal Planner",
+        "purpose": "Generate weekly plan (locked)",
+        "key_components": [
+          "PlannerIntro",
+          "PaywallPanel",
+          "UpsellPlus",
+          "SamplePlanPreview"
+        ],
+        "primary_actions": ["ViewUpsell", "Upgrade"],
+        "role_visibility": ["member_free"],
+        "feature_flags": [],
+        "data_entities": ["meal_plan_preview"],
+        "events": ["planner_locked_view", "upgrade_click_from_planner"],
+        "entry_points": ["nav", "recipe_cta_plan"],
+        "dependencies": ["payments", "iap"],
+        "edge_cases": ["trial_eligible", "already_plus_modal"],
+        "seo_route": null,
+        "mobile_variants": ["tab_planner_locked"]
+      },
+      {
+        "name": "Grocery List",
+        "purpose": "Lists from plans (locked)",
+        "key_components": ["PaywallPanel", "ListPreview"],
+        "primary_actions": ["Upgrade"],
+        "role_visibility": ["member_free"],
+        "feature_flags": [],
+        "data_entities": ["grocery_list_preview"],
+        "events": ["list_locked_view", "upgrade_click_from_list"],
+        "entry_points": ["planner", "nav"],
+        "dependencies": ["payments", "iap"],
+        "edge_cases": ["no_plan_yet"],
+        "seo_route": null,
+        "mobile_variants": ["stack_list_locked"]
+      },
+      {
+        "name": "Pantry & Spices",
+        "purpose": "Track pantry for filters (locked features)",
+        "key_components": [
+          "PantryItems",
+          "AddItem",
+          "SpiceChecklist",
+          "UpsellPlusInline"
+        ],
+        "primary_actions": ["Add", "Edit", "Remove", "Upgrade"],
+        "role_visibility": ["member_free"],
+        "feature_flags": [],
+        "data_entities": ["pantry_item", "spice"],
+        "events": ["pantry_view", "pantry_add", "pantry_upsell_view"],
+        "entry_points": ["nav", "filter_banner"],
+        "dependencies": [],
+        "edge_cases": ["empty_state"],
+        "seo_route": null,
+        "mobile_variants": ["tab_pantry"]
+      },
+      {
+        "name": "Import by URL",
+        "purpose": "Bring recipes (quota-limited)",
+        "key_components": [
+          "URLField",
+          "ParseProgress",
+          "QuotaMeter",
+          "UpsellProInline"
+        ],
+        "primary_actions": ["SubmitURL", "FixImport", "Upgrade"],
+        "role_visibility": ["member_free"],
+        "feature_flags": [],
+        "data_entities": ["import_job", "recipe"],
+        "events": ["import_view", "import_submit", "import_quota_hit"],
+        "entry_points": ["profile_menu", "empty_collection_cta"],
+        "dependencies": ["schema_org_parser", "queue"],
+        "edge_cases": ["quota_reached", "parse_failed"],
+        "seo_route": null,
+        "mobile_variants": ["stack_import_modal"]
+      },
+      {
+        "name": "Saved / Collections",
+        "purpose": "Bookmark recipes",
+        "key_components": ["CollectionsList", "CreateCollection", "RecipeGrid"],
+        "primary_actions": ["Save", "CreateCollection", "ShareCollection"],
+        "role_visibility": ["member_free"],
+        "feature_flags": [],
+        "data_entities": ["collection", "recipe"],
+        "events": ["collections_view", "collection_create"],
+        "entry_points": ["nav", "recipe_save"],
+        "dependencies": [],
+        "edge_cases": ["empty_state"],
+        "seo_route": null,
+        "mobile_variants": ["tab_saved"]
+      }
+    ],
+    "member_plus": [
+      {
+        "name": "Meal Planner",
+        "purpose": "Generate weekly plan",
+        "key_components": [
+          "GoalInputs",
+          "MacroTargets",
+          "MealsPerDay",
+          "Servings",
+          "RepeatRules",
+          "OptimizerOverlapToggle",
+          "ModeSelectorBatchDaily",
+          "PlanGrid"
+        ],
+        "primary_actions": [
+          "GeneratePlan",
+          "SavePlan",
+          "ApplyOptimizer",
+          "SwitchMode"
+        ],
+        "role_visibility": ["member_plus"],
+        "feature_flags": [
+          "meal_planning",
+          "optimizer_overlap",
+          "prep_mode_batch_daily"
+        ],
+        "data_entities": ["meal_plan", "macro_profile", "preference"],
+        "events": [
+          "planner_view",
+          "plan_generate",
+          "optimizer_toggle",
+          "mode_switch"
+        ],
+        "entry_points": ["nav", "recipe_cta_plan", "push_weekly_reminder"],
+        "dependencies": ["nutrition_db", "planner_engine"],
+        "edge_cases": ["no_recipes_fit", "offline"],
+        "seo_route": null,
+        "mobile_variants": ["tab_planner"]
+      },
+      {
+        "name": "Grocery List",
+        "purpose": "Auto list from plan",
+        "key_components": [
+          "ListGroupsByAisle",
+          "UnitConverter",
+          "CheckableItems",
+          "ExportButtons"
+        ],
+        "primary_actions": ["CheckItem", "Export", "Print"],
+        "role_visibility": ["member_plus"],
+        "feature_flags": ["grocery_lists"],
+        "data_entities": ["grocery_list", "meal_plan"],
+        "events": ["list_view", "list_export", "list_print"],
+        "entry_points": ["planner", "nav"],
+        "dependencies": ["export_service"],
+        "edge_cases": ["no_plan"],
+        "seo_route": null,
+        "mobile_variants": ["stack_list"]
+      },
+      {
+        "name": "Pantry & Spices",
+        "purpose": "Inventory impacts search",
+        "key_components": [
+          "PantryItems",
+          "SpiceChecklist",
+          "BulkAdd",
+          "ScanStub"
+        ],
+        "primary_actions": ["Add", "Edit", "Remove"],
+        "role_visibility": ["member_plus"],
+        "feature_flags": ["pantry_filter"],
+        "data_entities": ["pantry_item", "spice"],
+        "events": ["pantry_view", "pantry_update"],
+        "entry_points": ["nav", "filter_banner", "planner"],
+        "dependencies": [],
+        "edge_cases": ["empty_state"],
+        "seo_route": null,
+        "mobile_variants": ["tab_pantry"]
+      },
+      {
+        "name": "Advanced Search",
+        "purpose": "Power filters",
+        "key_components": [
+          "SearchBar",
+          "AdvancedFiltersPanel",
+          "DietaryChips",
+          "CookwareFilters"
+        ],
+        "primary_actions": ["Search", "ApplyFilter", "SaveFilterSet"],
+        "role_visibility": ["member_plus"],
+        "feature_flags": ["search_advanced"],
+        "data_entities": ["recipe", "tag", "filter_set"],
+        "events": ["search_advanced_view", "filter_apply", "filter_save"],
+        "entry_points": ["nav", "planner", "discover"],
+        "dependencies": ["search_index"],
+        "edge_cases": ["no_results"],
+        "seo_route": null,
+        "mobile_variants": ["tab_search_advanced"]
+      },
+      {
+        "name": "Import by URL",
+        "purpose": "Import within Plus quota",
+        "key_components": ["URLField", "ParseProgress", "QuotaMeter"],
+        "primary_actions": ["SubmitURL", "FixImport"],
+        "role_visibility": ["member_plus"],
+        "feature_flags": ["url_import_quota"],
+        "data_entities": ["import_job", "recipe"],
+        "events": ["import_submit", "import_success"],
+        "entry_points": ["profile_menu", "empty_collection_cta"],
+        "dependencies": ["schema_org_parser", "queue"],
+        "edge_cases": ["quota_reached", "parse_failed"],
+        "seo_route": null,
+        "mobile_variants": ["stack_import"]
+      }
+    ],
+    "member_pro": [
+      {
+        "name": "Meal Planner",
+        "purpose": "Planner with overrides",
+        "key_components": [
+          "GoalInputs",
+          "MacroTargets",
+          "OverrideMacros",
+          "OptimizerOverlapToggle",
+          "ModeSelectorBatchDaily",
+          "PlanGrid"
+        ],
+        "primary_actions": ["GeneratePlan", "OverrideMacros", "SavePlan"],
+        "role_visibility": ["member_pro"],
+        "feature_flags": [
+          "meal_planning",
+          "optimizer_overlap",
+          "prep_mode_batch_daily",
+          "macro_overrides"
+        ],
+        "data_entities": ["meal_plan", "macro_profile"],
+        "events": ["planner_view", "macro_override_set", "plan_save"],
+        "entry_points": ["nav", "push_weekly_reminder"],
+        "dependencies": ["nutrition_db", "planner_engine"],
+        "edge_cases": ["override_conflict"],
+        "seo_route": null,
+        "mobile_variants": ["tab_planner"]
+      },
+      {
+        "name": "Grocery List",
+        "purpose": "Export/print packs",
+        "key_components": [
+          "ListGroupsByAisle",
+          "UnitConverter",
+          "ExportButtons",
+          "PrintLayouts"
+        ],
+        "primary_actions": ["Export", "Print", "Share"],
+        "role_visibility": ["member_pro"],
+        "feature_flags": ["grocery_lists", "export_print_packs"],
+        "data_entities": ["grocery_list", "meal_plan"],
+        "events": ["list_export_pdf", "list_share"],
+        "entry_points": ["planner", "nav"],
+        "dependencies": ["export_service"],
+        "edge_cases": ["no_plan"],
+        "seo_route": null,
+        "mobile_variants": ["stack_list"]
+      },
+      {
+        "name": "Import by URL",
+        "purpose": "Unlimited import",
+        "key_components": [
+          "URLField",
+          "ParseProgress",
+          "HistoryTable",
+          "BulkImportCSV"
+        ],
+        "primary_actions": ["SubmitURL", "BulkImport", "FixImport"],
+        "role_visibility": ["member_pro"],
+        "feature_flags": ["url_import_quota"],
+        "data_entities": ["import_job", "recipe"],
+        "events": ["import_submit", "bulk_import_start"],
+        "entry_points": ["profile_menu", "empty_collection_cta"],
+        "dependencies": ["schema_org_parser", "queue"],
+        "edge_cases": ["parse_failed", "duplicates_detected"],
+        "seo_route": null,
+        "mobile_variants": ["stack_import"]
+      },
+      {
+        "name": "Households",
+        "purpose": "Manage multi-household",
+        "key_components": [
+          "HouseholdList",
+          "AddHousehold",
+          "SwitchHousehold",
+          "ShareInvite"
+        ],
+        "primary_actions": ["Create", "Invite", "Switch"],
+        "role_visibility": ["member_pro"],
+        "feature_flags": ["multi_household"],
+        "data_entities": ["household", "user"],
+        "events": ["household_create", "household_switch"],
+        "entry_points": ["profile_menu", "planner"],
+        "dependencies": ["invites"],
+        "edge_cases": ["invite_pending"],
+        "seo_route": null,
+        "mobile_variants": ["stack_households"]
+      }
+    ],
+    "creator_free": [
+      {
+        "name": "Creator Studio",
+        "purpose": "Overview and setup",
+        "key_components": [
+          "KPIBoxesBasic",
+          "TasksList",
+          "ImportCTA",
+          "MonetizationUpsell"
+        ],
+        "primary_actions": ["CreateRecipe", "ConnectPayouts", "Upgrade"],
+        "role_visibility": ["creator_free"],
+        "feature_flags": [],
+        "data_entities": ["recipe", "profile", "kpi_basic"],
+        "events": ["studio_view_basic"],
+        "entry_points": ["nav", "after_signup_creator"],
+        "dependencies": [],
+        "edge_cases": ["no_recipes"],
+        "seo_route": null,
+        "mobile_variants": ["tab_studio"]
+      },
+      {
+        "name": "Recipe Uploader",
+        "purpose": "Create/edit recipes",
+        "key_components": [
+          "TitleField",
+          "IngredientsEditor",
+          "StepsEditor",
+          "TimeFields",
+          "TagsPicker",
+          "NutritionAutoCalc",
+          "CreditsFields",
+          "MediaUploader"
+        ],
+        "primary_actions": ["SaveDraft", "PublishFree"],
+        "role_visibility": ["creator_free"],
+        "feature_flags": [],
+        "data_entities": ["recipe", "ingredient", "media"],
+        "events": ["recipe_create", "recipe_publish"],
+        "entry_points": ["studio", "nav"],
+        "dependencies": ["nutrition_db", "cdn"],
+        "edge_cases": ["macro_mapping_conflict"],
+        "seo_route": null,
+        "mobile_variants": ["stack_editor"]
+      },
+      {
+        "name": "Analytics (Basic)",
+        "purpose": "Views, saves, ratings",
+        "key_components": ["ViewsChart", "TopRecipesTable", "RatingsSummary"],
+        "primary_actions": ["FilterDate"],
+        "role_visibility": ["creator_free"],
+        "feature_flags": [],
+        "data_entities": ["analytics_basic", "recipe"],
+        "events": ["analytics_basic_view"],
+        "entry_points": ["studio"],
+        "dependencies": ["analytics_pipeline"],
+        "edge_cases": ["no_data"],
+        "seo_route": null,
+        "mobile_variants": ["stack_analytics_basic"]
+      },
+      {
+        "name": "Profile Editor",
+        "purpose": "Manage public profile",
+        "key_components": ["AvatarUploader", "BioField", "LinksList"],
+        "primary_actions": ["Save"],
+        "role_visibility": ["creator_free"],
+        "feature_flags": [],
+        "data_entities": ["chef_profile"],
+        "events": ["profile_save"],
+        "entry_points": ["studio", "profile_menu"],
+        "dependencies": ["cdn"],
+        "edge_cases": ["invalid_link"],
+        "seo_route": null,
+        "mobile_variants": ["stack_profile_editor"]
+      }
+    ],
+    "creator_plus": [
+      {
+        "name": "Batch Import",
+        "purpose": "Bulk add recipes",
+        "key_components": [
+          "CSVUpload",
+          "MapperUI",
+          "ValidationTable",
+          "ProgressBar"
+        ],
+        "primary_actions": ["UploadCSV", "MapFields", "StartImport"],
+        "role_visibility": ["creator_plus"],
+        "feature_flags": ["batch_import"],
+        "data_entities": ["import_job", "recipe"],
+        "events": ["creator_batch_import_start", "creator_import_complete"],
+        "entry_points": ["studio", "uploader"],
+        "dependencies": ["queue"],
+        "edge_cases": ["mapping_errors", "duplicates_detected"],
+        "seo_route": null,
+        "mobile_variants": ["stack_import"]
+      },
+      {
+        "name": "Cookbook Builder",
+        "purpose": "Create digital cookbooks",
+        "key_components": [
+          "TemplatePicker",
+          "DragListRecipes",
+          "CoverDesigner",
+          "PriceField",
+          "ExportPreview"
+        ],
+        "primary_actions": ["CreateCookbook", "Export", "Publish"],
+        "role_visibility": ["creator_plus"],
+        "feature_flags": ["cookbook_builder_templates"],
+        "data_entities": ["cookbook", "recipe", "media"],
+        "events": ["cookbook_create", "cookbook_export_preview"],
+        "entry_points": ["studio", "recipe_manager"],
+        "dependencies": ["export_service"],
+        "edge_cases": ["not_enough_recipes"],
+        "seo_route": null,
+        "mobile_variants": ["stack_cookbook_builder"]
+      },
+      {
+        "name": "Schedule Manager",
+        "purpose": "Plan publish times",
+        "key_components": ["Calendar", "QueueList", "TimeZonePicker"],
+        "primary_actions": ["Schedule", "Reschedule", "Unschedule"],
+        "role_visibility": ["creator_plus"],
+        "feature_flags": ["scheduled_publishing"],
+        "data_entities": ["schedule", "recipe"],
+        "events": ["schedule_add", "schedule_change"],
+        "entry_points": ["studio", "uploader_finish"],
+        "dependencies": ["job_scheduler"],
+        "edge_cases": ["timezone_missing"],
+        "seo_route": null,
+        "mobile_variants": ["stack_schedule"]
+      },
+      {
+        "name": "Profile Themes",
+        "purpose": "Customize storefront",
+        "key_components": ["ThemePicker", "ColorTokens", "PreviewPane"],
+        "primary_actions": ["ApplyTheme", "ResetTheme"],
+        "role_visibility": ["creator_plus"],
+        "feature_flags": ["profile_themes"],
+        "data_entities": ["chef_profile_theme"],
+        "events": ["theme_apply"],
+        "entry_points": ["profile_editor", "studio"],
+        "dependencies": [],
+        "edge_cases": ["contrast_warning"],
+        "seo_route": null,
+        "mobile_variants": ["stack_theme_editor"]
+      }
+    ],
+    "chef_pro": [
+      {
+        "name": "Commerce Center",
+        "purpose": "Enable selling & payouts",
+        "key_components": [
+          "KYCStatus",
+          "ConnectPayments",
+          "ProductTypesTiles",
+          "SellingToggle"
+        ],
+        "primary_actions": ["ConnectKYC", "EnableSelling"],
+        "role_visibility": ["chef_pro"],
+        "feature_flags": ["commerce_can_sell"],
+        "data_entities": ["kyc", "payout_account"],
+        "events": ["commerce_center_view", "kyc_connect", "selling_enabled"],
+        "entry_points": ["studio", "nav"],
+        "dependencies": ["verify_kyc", "payouts"],
+        "edge_cases": ["kyc_pending", "kyc_failed"],
+        "seo_route": null,
+        "mobile_variants": ["stack_commerce_center"]
+      },
+      {
+        "name": "Paid Recipes",
+        "purpose": "Manage paywalled recipes",
+        "key_components": [
+          "RecipeTable",
+          "PriceEditor",
+          "AccessRules",
+          "BundlePicker"
+        ],
+        "primary_actions": ["SetPrice", "PublishPaid", "AttachToBundle"],
+        "role_visibility": ["chef_pro"],
+        "feature_flags": ["paid_recipes"],
+        "data_entities": ["recipe", "price", "access_rule"],
+        "events": ["paid_recipe_publish", "price_update"],
+        "entry_points": ["commerce_center", "recipe_manager"],
+        "dependencies": ["payments"],
+        "edge_cases": ["no_kyc", "iap_conflict"],
+        "seo_route": null,
+        "mobile_variants": ["stack_paid_recipes"]
+      },
+      {
+        "name": "Bundles",
+        "purpose": "Create paid bundles",
+        "key_components": ["CreateBundle", "AddItems", "Pricing", "PromoCodes"],
+        "primary_actions": ["Create", "AddItem", "Publish"],
+        "role_visibility": ["chef_pro"],
+        "feature_flags": ["bundles"],
+        "data_entities": ["bundle", "recipe", "cookbook"],
+        "events": ["bundle_create", "bundle_publish"],
+        "entry_points": ["commerce_center"],
+        "dependencies": ["payments"],
+        "edge_cases": ["empty_bundle"],
+        "seo_route": null,
+        "mobile_variants": ["stack_bundles"]
+      },
+      {
+        "name": "Cookbooks Manager",
+        "purpose": "Sell cookbooks",
+        "key_components": ["CookbookList", "PriceField", "LandingPreview"],
+        "primary_actions": ["Publish", "Discount"],
+        "role_visibility": ["chef_pro"],
+        "feature_flags": ["cookbooks"],
+        "data_entities": ["cookbook", "price"],
+        "events": ["cookbook_publish", "discount_set"],
+        "entry_points": ["commerce_center", "cookbook_builder"],
+        "dependencies": ["payments"],
+        "edge_cases": ["no_kits"],
+        "seo_route": null,
+        "mobile_variants": ["stack_cookbooks"]
+      },
+      {
+        "name": "Courses",
+        "purpose": "Create/sell courses",
+        "key_components": [
+          "CurriculumBuilder",
+          "LessonUploader",
+          "Pricing",
+          "DripSchedule"
+        ],
+        "primary_actions": ["CreateCourse", "PublishCourse"],
+        "role_visibility": ["chef_pro"],
+        "feature_flags": ["courses"],
+        "data_entities": ["course", "lesson", "price"],
+        "events": ["course_create", "course_publish"],
+        "entry_points": ["commerce_center"],
+        "dependencies": ["cdn", "payments"],
+        "edge_cases": ["video_quota"],
+        "seo_route": null,
+        "mobile_variants": ["stack_courses"]
+      },
+      {
+        "name": "Sponsored Placements",
+        "purpose": "Buy featured slots",
+        "key_components": [
+          "PlacementCatalog",
+          "DatesPicker",
+          "BudgetField",
+          "ForecastPanel"
+        ],
+        "primary_actions": ["BookPlacement", "SetBudget"],
+        "role_visibility": ["chef_pro"],
+        "feature_flags": ["sponsored_placements"],
+        "data_entities": ["ad_slot", "ad_booking"],
+        "events": ["sponsored_booking_start", "sponsored_booking_complete"],
+        "entry_points": ["studio", "marketplace_banner"],
+        "dependencies": ["ads_engine", "payments"],
+        "edge_cases": ["sold_out", "cpc_floor"],
+        "seo_route": null,
+        "mobile_variants": ["stack_sponsored"]
+      },
+      {
+        "name": "Insights (Advanced)",
+        "purpose": "Funnels, cohorts, sources",
+        "key_components": [
+          "FunnelsChart",
+          "CohortsTable",
+          "TrafficSources",
+          "RetentionCurves"
+        ],
+        "primary_actions": ["ExportCSV", "ChangeAttributionWindow"],
+        "role_visibility": ["chef_pro"],
+        "feature_flags": ["insights_advanced"],
+        "data_entities": ["analytics_pro", "utm", "pixel"],
+        "events": ["insights_view", "insights_export"],
+        "entry_points": ["studio", "commerce_center"],
+        "dependencies": ["analytics_pipeline"],
+        "edge_cases": ["no_data"],
+        "seo_route": null,
+        "mobile_variants": ["stack_insights"]
+      },
+      {
+        "name": "Pixels & UTMs",
+        "purpose": "Configure tracking",
+        "key_components": ["PixelInputs", "UTMDefaults", "VerificationStatus"],
+        "primary_actions": ["SavePixel", "TestEvent"],
+        "role_visibility": ["chef_pro"],
+        "feature_flags": ["pixels_utms"],
+        "data_entities": ["pixel", "utm"],
+        "events": ["pixel_save", "pixel_test"],
+        "entry_points": ["insights", "commerce_center"],
+        "dependencies": ["meta_pixel", "ga4"],
+        "edge_cases": ["verification_failed"],
+        "seo_route": null,
+        "mobile_variants": ["stack_pixels"]
+      }
+    ],
+    "chef_pro_plus": [
+      {
+        "name": "Shopify Sync",
+        "purpose": "Sync catalog/orders",
+        "key_components": [
+          "ConnectShopify",
+          "SyncNow",
+          "MappingsTable",
+          "StatusBadges"
+        ],
+        "primary_actions": ["Connect", "Map", "Sync"],
+        "role_visibility": ["chef_pro_plus"],
+        "feature_flags": ["shopify_sync"],
+        "data_entities": ["sync_job", "product", "order"],
+        "events": ["shopify_connect", "shopify_sync_start"],
+        "entry_points": ["commerce_center", "integrations_hub"],
+        "dependencies": ["shopify_api"],
+        "edge_cases": ["token_expired", "rate_limited"],
+        "seo_route": null,
+        "mobile_variants": ["stack_shopify"]
+      },
+      {
+        "name": "WooCommerce Sync",
+        "purpose": "Sync Woo store",
+        "key_components": ["ConnectWoo", "MappingsTable", "SyncNow"],
+        "primary_actions": ["Connect", "Map", "Sync"],
+        "role_visibility": ["chef_pro_plus"],
+        "feature_flags": ["woocommerce_sync"],
+        "data_entities": ["sync_job", "product", "order"],
+        "events": ["woo_connect", "woo_sync_start"],
+        "entry_points": ["integrations_hub"],
+        "dependencies": ["woocommerce_api"],
+        "edge_cases": ["auth_failed"],
+        "seo_route": null,
+        "mobile_variants": ["stack_woo"]
+      },
+      {
+        "name": "Domains",
+        "purpose": "Subdomain/custom domain",
+        "key_components": [
+          "SubdomainField",
+          "CustomDomainField",
+          "DNSGuide",
+          "Status"
+        ],
+        "primary_actions": ["ClaimSubdomain", "ConnectDomain"],
+        "role_visibility": ["chef_pro_plus"],
+        "feature_flags": ["subdomain", "custom_domain"],
+        "data_entities": ["domain", "dns_check"],
+        "events": ["domain_claim", "custom_domain_connect"],
+        "entry_points": ["profile_editor", "commerce_center"],
+        "dependencies": ["dns_provider"],
+        "edge_cases": ["dns_pending", "conflict"],
+        "seo_route": null,
+        "mobile_variants": ["stack_domains"]
+      },
+      {
+        "name": "Audience Export",
+        "purpose": "Export buyers/followers",
+        "key_components": ["FilterPanel", "FieldsSelector", "ExportButton"],
+        "primary_actions": ["ExportCSV"],
+        "role_visibility": ["chef_pro_plus"],
+        "feature_flags": ["audience_export"],
+        "data_entities": ["audience", "export_job"],
+        "events": ["audience_export_start"],
+        "entry_points": ["insights"],
+        "dependencies": ["export_service"],
+        "edge_cases": ["privacy_guardrails"],
+        "seo_route": null,
+        "mobile_variants": ["stack_audience_export"]
+      },
+      {
+        "name": "Promo Credits",
+        "purpose": "Manage ad credits",
+        "key_components": ["CreditBalance", "RedeemCode", "ApplyToPlacement"],
+        "primary_actions": ["Redeem", "Apply"],
+        "role_visibility": ["chef_pro_plus"],
+        "feature_flags": ["promo_credits"],
+        "data_entities": ["credit", "ad_booking"],
+        "events": ["promo_redeem", "promo_apply"],
+        "entry_points": ["sponsored_placements"],
+        "dependencies": ["ads_engine"],
+        "edge_cases": ["code_invalid", "expired"],
+        "seo_route": null,
+        "mobile_variants": ["stack_promo"]
+      }
+    ],
+    "teams_owner": [
+      {
+        "name": "Team Dashboard",
+        "purpose": "Overview & seats",
+        "key_components": [
+          "SeatsTable",
+          "InviteMembers",
+          "UsageBoxes",
+          "BillingPanel"
+        ],
+        "primary_actions": ["Invite", "Remove", "UpgradeSeats"],
+        "role_visibility": ["teams_owner"],
+        "feature_flags": [],
+        "data_entities": ["team", "team_member", "billing"],
+        "events": ["team_dashboard_view", "invite_sent"],
+        "entry_points": ["nav"],
+        "dependencies": ["invites", "billing"],
+        "edge_cases": ["seat_limit_reached"],
+        "seo_route": null,
+        "mobile_variants": ["tab_team"]
+      },
+      {
+        "name": "Shared Cookbooks",
+        "purpose": "Org cookbook library",
+        "key_components": ["CookbookGrid", "PermissionsPanel", "ShareLinks"],
+        "primary_actions": ["Create", "Share", "Assign"],
+        "role_visibility": ["teams_owner", "teams_member"],
+        "feature_flags": ["shared_cookbooks"],
+        "data_entities": ["cookbook", "team"],
+        "events": ["team_cookbook_create", "team_cookbook_share"],
+        "entry_points": ["team_dashboard", "nav"],
+        "dependencies": [],
+        "edge_cases": ["empty_state"],
+        "seo_route": null,
+        "mobile_variants": ["stack_team_cookbooks"]
+      },
+      {
+        "name": "Client Plan Exports",
+        "purpose": "Export branded plans",
+        "key_components": ["ClientSelector", "PlanPicker", "ExportLayouts"],
+        "primary_actions": ["ExportPDF", "SendEmail"],
+        "role_visibility": ["teams_owner", "teams_member"],
+        "feature_flags": ["client_plan_exports"],
+        "data_entities": ["client", "meal_plan", "export_job"],
+        "events": ["client_export_start", "client_export_complete"],
+        "entry_points": ["team_dashboard", "planner"],
+        "dependencies": ["export_service", "email_service"],
+        "edge_cases": ["no_clients"],
+        "seo_route": null,
+        "mobile_variants": ["stack_client_exports"]
+      },
+      {
+        "name": "White-Label Branding",
+        "purpose": "Brand exported PDFs",
+        "key_components": ["LogoUploader", "ColorPicker", "PreviewPane"],
+        "primary_actions": ["SaveBranding"],
+        "role_visibility": ["teams_owner"],
+        "feature_flags": ["white_label_pdf"],
+        "data_entities": ["brand_kit"],
+        "events": ["brandkit_save"],
+        "entry_points": ["client_exports"],
+        "dependencies": ["cdn"],
+        "edge_cases": ["low_res_logo"],
+        "seo_route": null,
+        "mobile_variants": ["stack_branding"]
+      }
+    ],
+    "teams_member": [
+      {
+        "name": "Team Workspace",
+        "purpose": "Member tasks",
+        "key_components": [
+          "AssignedClients",
+          "SharedCookbooks",
+          "RecentExports"
+        ],
+        "primary_actions": ["OpenClient", "ExportPlan"],
+        "role_visibility": ["teams_member"],
+        "feature_flags": ["shared_cookbooks", "client_plan_exports"],
+        "data_entities": ["client", "cookbook", "export_job"],
+        "events": ["team_member_view"],
+        "entry_points": ["nav", "invite_link"],
+        "dependencies": [],
+        "edge_cases": ["no_assignments"],
+        "seo_route": null,
+        "mobile_variants": ["tab_team_member"]
+      }
+    ],
+    "admin": [
+      {
+        "name": "Admin Dashboard",
+        "purpose": "KPIs & queues",
+        "key_components": ["KPIBoxes", "Queues", "SystemHealth"],
+        "primary_actions": ["OpenQueue", "AckAlert"],
+        "role_visibility": ["admin"],
+        "feature_flags": [],
+        "data_entities": ["kpi", "queue"],
+        "events": ["admin_dashboard_view"],
+        "entry_points": ["admin_nav"],
+        "dependencies": ["analytics_pipeline", "ops_monitoring"],
+        "edge_cases": ["no_alerts"],
+        "seo_route": null,
+        "mobile_variants": ["admin_stack"]
+      },
+      {
+        "name": "Verification & KYC",
+        "purpose": "Verify chefs and payouts",
+        "key_components": ["KYCQueue", "CaseDetail", "ApproveReject"],
+        "primary_actions": ["Approve", "Reject", "RequestInfo"],
+        "role_visibility": ["admin"],
+        "feature_flags": ["verify_kyc", "payouts"],
+        "data_entities": ["kyc_case", "payout_account"],
+        "events": ["kyc_case_decision"],
+        "entry_points": ["admin_dashboard"],
+        "dependencies": ["kyc_provider", "payments"],
+        "edge_cases": ["resubmission"],
+        "seo_route": null,
+        "mobile_variants": ["admin_stack_kyc"]
+      },
+      {
+        "name": "Payouts",
+        "purpose": "Manage creator payouts",
+        "key_components": ["PayoutRuns", "HoldReasons", "ReleaseButton"],
+        "primary_actions": ["Release", "Hold", "Refund"],
+        "role_visibility": ["admin"],
+        "feature_flags": ["payouts"],
+        "data_entities": ["payout", "order", "refund"],
+        "events": ["payout_release", "payout_hold"],
+        "entry_points": ["admin_nav"],
+        "dependencies": ["payments"],
+        "edge_cases": ["insufficient_balance"],
+        "seo_route": null,
+        "mobile_variants": ["admin_stack_payouts"]
+      },
+      {
+        "name": "Moderate Reviews",
+        "purpose": "Review/ratings moderation",
+        "key_components": ["FlaggedList", "ContentViewer", "ActionsBar"],
+        "primary_actions": ["Approve", "Remove", "BanUser"],
+        "role_visibility": ["admin"],
+        "feature_flags": ["moderate_reviews"],
+        "data_entities": ["review", "flag"],
+        "events": ["review_action"],
+        "entry_points": ["admin_nav", "report_link"],
+        "dependencies": ["abuse_service"],
+        "edge_cases": ["mass_flags"],
+        "seo_route": null,
+        "mobile_variants": ["admin_stack_reviews"]
+      },
+      {
+        "name": "DMCA & IP",
+        "purpose": "Handle takedowns",
+        "key_components": ["CasesTable", "EvidenceViewer", "DecisionPanel"],
+        "primary_actions": ["RemoveContent", "NotifyParties", "AppealDecision"],
+        "role_visibility": ["admin"],
+        "feature_flags": ["dmca_tools"],
+        "data_entities": ["dmca_case", "recipe", "user"],
+        "events": ["dmca_remove", "dmca_notify"],
+        "entry_points": ["admin_nav", "legal_portal"],
+        "dependencies": ["email_service"],
+        "edge_cases": ["counter_notice"],
+        "seo_route": null,
+        "mobile_variants": ["admin_stack_dmca"]
+      },
+      {
+        "name": "Duplicate / Merge",
+        "purpose": "Deduplicate recipes",
+        "key_components": ["DuplicateClusters", "DiffViewer", "MergeTool"],
+        "primary_actions": ["Merge", "Dismiss"],
+        "role_visibility": ["admin"],
+        "feature_flags": ["duplicate_merge"],
+        "data_entities": ["duplicate_group", "recipe"],
+        "events": ["duplicate_merge_commit"],
+        "entry_points": ["admin_nav", "ops_alert"],
+        "dependencies": ["similarity_service"],
+        "edge_cases": ["merge_conflict"],
+        "seo_route": null,
+        "mobile_variants": ["admin_stack_duplicates"]
+      },
+      {
+        "name": "Ads Review",
+        "purpose": "QA sponsored placements",
+        "key_components": ["PendingAds", "PolicyChecklist", "ApproveReject"],
+        "primary_actions": ["Approve", "Reject", "RequestChanges"],
+        "role_visibility": ["admin"],
+        "feature_flags": ["ads_review", "sponsored_placements"],
+        "data_entities": ["ad_booking", "ad_creative"],
+        "events": ["ad_review_decision"],
+        "entry_points": ["admin_nav"],
+        "dependencies": ["ads_engine"],
+        "edge_cases": ["time_sensitive_booking"],
+        "seo_route": null,
+        "mobile_variants": ["admin_stack_ads"]
+      },
+      {
+        "name": "Catalog Integrity",
+        "purpose": "Policy, tagging, allergens",
+        "key_components": ["PolicyRules", "TagAudit", "NutritionFlags"],
+        "primary_actions": ["ApplyTag", "RecalcNutrition", "SuspendRecipe"],
+        "role_visibility": ["admin"],
+        "feature_flags": [],
+        "data_entities": ["recipe", "tag", "nutrition_flag"],
+        "events": ["catalog_fix_applied"],
+        "entry_points": ["admin_nav", "moderation_escalation"],
+        "dependencies": ["nutrition_db"],
+        "edge_cases": ["mass_update"],
+        "seo_route": null,
+        "mobile_variants": ["admin_stack_catalog"]
+      }
+    ]
+  },
+  "global_navigation": {
+    "unauthenticated": [
+      {
+        "name": "Discover",
+        "route": "/",
+        "icon": "compass",
+        "visibility_note": "public"
+      },
+      {
+        "name": "Search",
+        "route": "/search",
+        "icon": "search",
+        "visibility_note": "public"
+      },
+      {
+        "name": "Marketplace",
+        "route": "/marketplace",
+        "icon": "store",
+        "visibility_note": "public"
+      },
+      {
+        "name": "Sign in",
+        "route": "/auth",
+        "icon": "user",
+        "visibility_note": "public"
+      }
+    ],
+    "member_free": [
+      {
+        "name": "Home",
+        "route": "/",
+        "icon": "home",
+        "visibility_note": "personalized"
+      },
+      {
+        "name": "Search",
+        "route": "/search",
+        "icon": "search",
+        "visibility_note": "basic filters"
+      },
+      {
+        "name": "Planner",
+        "route": "/planner",
+        "icon": "calendar",
+        "visibility_note": "locked upsell"
+      },
+      {
+        "name": "Saved",
+        "route": "/saved",
+        "icon": "bookmark",
+        "visibility_note": "collections"
+      },
+      {
+        "name": "Pantry",
+        "route": "/pantry",
+        "icon": "fridge",
+        "visibility_note": "limited"
+      },
+      {
+        "name": "Marketplace",
+        "route": "/marketplace",
+        "icon": "store",
+        "visibility_note": "shop"
+      },
+      {
+        "name": "Profile",
+        "route": "/me",
+        "icon": "user",
+        "visibility_note": "settings"
+      }
+    ],
+    "member_plus": [
+      { "name": "Home", "route": "/", "icon": "home", "visibility_note": "" },
+      {
+        "name": "Search+",
+        "route": "/search",
+        "icon": "search",
+        "visibility_note": "advanced filters"
+      },
+      {
+        "name": "Planner",
+        "route": "/planner",
+        "icon": "calendar",
+        "visibility_note": "batch/daily + optimizer"
+      },
+      {
+        "name": "Lists",
+        "route": "/lists",
+        "icon": "list",
+        "visibility_note": "export"
+      },
+      {
+        "name": "Pantry",
+        "route": "/pantry",
+        "icon": "fridge",
+        "visibility_note": "inventory filters"
+      },
+      {
+        "name": "Saved",
+        "route": "/saved",
+        "icon": "bookmark",
+        "visibility_note": ""
+      },
+      {
+        "name": "Marketplace",
+        "route": "/marketplace",
+        "icon": "store",
+        "visibility_note": ""
+      },
+      {
+        "name": "Profile",
+        "route": "/me",
+        "icon": "user",
+        "visibility_note": ""
+      }
+    ],
+    "member_pro": [
+      { "name": "Home", "route": "/", "icon": "home", "visibility_note": "" },
+      {
+        "name": "Planner",
+        "route": "/planner",
+        "icon": "calendar",
+        "visibility_note": "macro overrides"
+      },
+      {
+        "name": "Lists",
+        "route": "/lists",
+        "icon": "list",
+        "visibility_note": "print packs"
+      },
+      {
+        "name": "Pantry",
+        "route": "/pantry",
+        "icon": "fridge",
+        "visibility_note": ""
+      },
+      {
+        "name": "Import",
+        "route": "/import",
+        "icon": "download",
+        "visibility_note": "unlimited"
+      },
+      {
+        "name": "Households",
+        "route": "/households",
+        "icon": "users",
+        "visibility_note": "multi-household"
+      },
+      {
+        "name": "Marketplace",
+        "route": "/marketplace",
+        "icon": "store",
+        "visibility_note": ""
+      },
+      {
+        "name": "Profile",
+        "route": "/me",
+        "icon": "user",
+        "visibility_note": ""
+      }
+    ],
+    "creator_free": [
+      {
+        "name": "Studio",
+        "route": "/studio",
+        "icon": "dashboard",
+        "visibility_note": "basic"
+      },
+      {
+        "name": "Recipes",
+        "route": "/studio/recipes",
+        "icon": "book",
+        "visibility_note": "free only"
+      },
+      {
+        "name": "Analytics",
+        "route": "/studio/analytics",
+        "icon": "chart",
+        "visibility_note": "basic"
+      },
+      {
+        "name": "Profile",
+        "route": "/studio/profile",
+        "icon": "user",
+        "visibility_note": ""
+      }
+    ],
+    "creator_plus": [
+      {
+        "name": "Studio",
+        "route": "/studio",
+        "icon": "dashboard",
+        "visibility_note": ""
+      },
+      {
+        "name": "Recipes",
+        "route": "/studio/recipes",
+        "icon": "book",
+        "visibility_note": ""
+      },
+      {
+        "name": "Cookbook Builder",
+        "route": "/studio/cookbooks",
+        "icon": "layers",
+        "visibility_note": "templates"
+      },
+      {
+        "name": "Schedule",
+        "route": "/studio/schedule",
+        "icon": "clock",
+        "visibility_note": ""
+      },
+      {
+        "name": "Themes",
+        "route": "/studio/themes",
+        "icon": "palette",
+        "visibility_note": ""
+      },
+      {
+        "name": "Analytics",
+        "route": "/studio/analytics",
+        "icon": "chart",
+        "visibility_note": "basic"
+      }
+    ],
+    "chef_pro": [
+      {
+        "name": "Studio",
+        "route": "/studio",
+        "icon": "dashboard",
+        "visibility_note": ""
+      },
+      {
+        "name": "Commerce",
+        "route": "/studio/commerce",
+        "icon": "credit-card",
+        "visibility_note": "selling"
+      },
+      {
+        "name": "Products",
+        "route": "/studio/products",
+        "icon": "package",
+        "visibility_note": "recipes/bundles/cookbooks/courses"
+      },
+      {
+        "name": "Sponsored",
+        "route": "/studio/sponsored",
+        "icon": "megaphone",
+        "visibility_note": ""
+      },
+      {
+        "name": "Insights",
+        "route": "/studio/insights",
+        "icon": "chart",
+        "visibility_note": "advanced"
+      },
+      {
+        "name": "Pixels/UTMs",
+        "route": "/studio/pixels",
+        "icon": "target",
+        "visibility_note": ""
+      }
+    ],
+    "chef_pro_plus": [
+      {
+        "name": "Studio",
+        "route": "/studio",
+        "icon": "dashboard",
+        "visibility_note": ""
+      },
+      {
+        "name": "Integrations",
+        "route": "/studio/integrations",
+        "icon": "plug",
+        "visibility_note": "Shopify/Woo"
+      },
+      {
+        "name": "Domains",
+        "route": "/studio/domains",
+        "icon": "globe",
+        "visibility_note": "sub/custom domains"
+      },
+      {
+        "name": "Audience",
+        "route": "/studio/audience",
+        "icon": "users",
+        "visibility_note": "export"
+      },
+      {
+        "name": "Promo Credits",
+        "route": "/studio/credits",
+        "icon": "ticket",
+        "visibility_note": ""
+      }
+    ],
+    "teams_owner": [
+      {
+        "name": "Team",
+        "route": "/team",
+        "icon": "users",
+        "visibility_note": "seats"
+      },
+      {
+        "name": "Cookbooks",
+        "route": "/team/cookbooks",
+        "icon": "layers",
+        "visibility_note": "shared"
+      },
+      {
+        "name": "Client Exports",
+        "route": "/team/exports",
+        "icon": "file-text",
+        "visibility_note": "PDF"
+      },
+      {
+        "name": "Branding",
+        "route": "/team/branding",
+        "icon": "palette",
+        "visibility_note": "white-label"
+      }
+    ],
+    "teams_member": [
+      {
+        "name": "Workspace",
+        "route": "/team/workspace",
+        "icon": "briefcase",
+        "visibility_note": "assignments"
+      },
+      {
+        "name": "Cookbooks",
+        "route": "/team/cookbooks",
+        "icon": "layers",
+        "visibility_note": "shared"
+      },
+      {
+        "name": "Client Exports",
+        "route": "/team/exports",
+        "icon": "file-text",
+        "visibility_note": ""
+      }
+    ],
+    "admin": [
+      {
+        "name": "Dashboard",
+        "route": "/admin",
+        "icon": "dashboard",
+        "visibility_note": ""
+      },
+      {
+        "name": "KYC",
+        "route": "/admin/kyc",
+        "icon": "shield",
+        "visibility_note": ""
+      },
+      {
+        "name": "Payouts",
+        "route": "/admin/payouts",
+        "icon": "credit-card",
+        "visibility_note": ""
+      },
+      {
+        "name": "Reviews",
+        "route": "/admin/reviews",
+        "icon": "message-square",
+        "visibility_note": ""
+      },
+      {
+        "name": "DMCA",
+        "route": "/admin/dmca",
+        "icon": "alert-triangle",
+        "visibility_note": ""
+      },
+      {
+        "name": "Duplicates",
+        "route": "/admin/duplicates",
+        "icon": "copy",
+        "visibility_note": ""
+      },
+      {
+        "name": "Ads Review",
+        "route": "/admin/ads",
+        "icon": "megaphone",
+        "visibility_note": ""
+      },
+      {
+        "name": "Catalog",
+        "route": "/admin/catalog",
+        "icon": "database",
+        "visibility_note": ""
+      }
+    ]
+  },
+  "paywall_surfaces": [
+    {
+      "context": "Planner open (Free)",
+      "trigger": "Tap Planner tab",
+      "target_tier": "Plus",
+      "message_id": "pw_planner_plus",
+      "tracking_event": "paywall_planner_view"
+    },
+    {
+      "context": "Optimizer toggle",
+      "trigger": "Enable overlap optimizer",
+      "target_tier": "Plus",
+      "message_id": "pw_optimizer_plus",
+      "tracking_event": "paywall_optimizer_view"
+    },
+    {
+      "context": "Batch vs Daily mode",
+      "trigger": "Switch mode",
+      "target_tier": "Plus",
+      "message_id": "pw_prep_mode_plus",
+      "tracking_event": "paywall_prep_mode_view"
+    },
+    {
+      "context": "Grocery List export",
+      "trigger": "Export/Print click",
+      "target_tier": "Plus",
+      "message_id": "pw_lists_plus",
+      "tracking_event": "paywall_list_export_view"
+    },
+    {
+      "context": "Pantry filter chip",
+      "trigger": "Use pantry-only filter",
+      "target_tier": "Plus",
+      "message_id": "pw_pantry_plus",
+      "tracking_event": "paywall_pantry_view"
+    },
+    {
+      "context": "Advanced Search panel",
+      "trigger": "Open advanced filters",
+      "target_tier": "Plus",
+      "message_id": "pw_search_plus",
+      "tracking_event": "paywall_search_view"
+    },
+    {
+      "context": "URL import quota hit",
+      "trigger": "Submit beyond quota",
+      "target_tier": "Pro",
+      "message_id": "pw_import_pro",
+      "tracking_event": "paywall_import_quota"
+    },
+    {
+      "context": "Macro override",
+      "trigger": "Open Override Macros",
+      "target_tier": "Pro",
+      "message_id": "pw_macro_override_pro",
+      "tracking_event": "paywall_macro_override"
+    },
+    {
+      "context": "Export print packs",
+      "trigger": "Select print layout",
+      "target_tier": "Pro",
+      "message_id": "pw_printpacks_pro",
+      "tracking_event": "paywall_printpacks_view"
+    },
+    {
+      "context": "Multi-household create",
+      "trigger": "Add household",
+      "target_tier": "Pro",
+      "message_id": "pw_household_pro",
+      "tracking_event": "paywall_household_view"
+    },
+    {
+      "context": "Creator batch import",
+      "trigger": "Open Batch Import",
+      "target_tier": "Creator+",
+      "message_id": "pw_batch_import_creatorplus",
+      "tracking_event": "paywall_batch_import_view"
+    },
+    {
+      "context": "Cookbook templates",
+      "trigger": "Open templates",
+      "target_tier": "Creator+",
+      "message_id": "pw_cookbook_templates",
+      "tracking_event": "paywall_cookbook_templates"
+    },
+    {
+      "context": "Scheduled publishing",
+      "trigger": "Open calendar",
+      "target_tier": "Creator+",
+      "message_id": "pw_schedule_creatorplus",
+      "tracking_event": "paywall_schedule_view"
+    },
+    {
+      "context": "Profile themes",
+      "trigger": "Open Themes",
+      "target_tier": "Creator+",
+      "message_id": "pw_themes_creatorplus",
+      "tracking_event": "paywall_themes_view"
+    },
+    {
+      "context": "Enable selling",
+      "trigger": "Toggle selling on",
+      "target_tier": "Chef Pro",
+      "message_id": "pw_commerce_chefpro",
+      "tracking_event": "paywall_commerce_view"
+    },
+    {
+      "context": "Create paid recipe",
+      "trigger": "Set price on recipe",
+      "target_tier": "Chef Pro",
+      "message_id": "pw_paid_recipe",
+      "tracking_event": "paywall_paid_recipe"
+    },
+    {
+      "context": "Create bundle/cookbook/course",
+      "trigger": "Publish product",
+      "target_tier": "Chef Pro",
+      "message_id": "pw_products_chefpro",
+      "tracking_event": "paywall_products"
+    },
+    {
+      "context": "Sponsored placements",
+      "trigger": "Book slot",
+      "target_tier": "Chef Pro",
+      "message_id": "pw_sponsored_chefpro",
+      "tracking_event": "paywall_sponsored"
+    },
+    {
+      "context": "Insights advanced",
+      "trigger": "Open funnels",
+      "target_tier": "Chef Pro",
+      "message_id": "pw_insights_chefpro",
+      "tracking_event": "paywall_insights"
+    },
+    {
+      "context": "Pixels/UTMs",
+      "trigger": "Save pixel",
+      "target_tier": "Chef Pro",
+      "message_id": "pw_pixels_chefpro",
+      "tracking_event": "paywall_pixels"
+    },
+    {
+      "context": "Shopify connect",
+      "trigger": "Click Connect",
+      "target_tier": "Pro+",
+      "message_id": "pw_shopify_proplus",
+      "tracking_event": "paywall_shopify"
+    },
+    {
+      "context": "Woo connect",
+      "trigger": "Click Connect",
+      "target_tier": "Pro+",
+      "message_id": "pw_woo_proplus",
+      "tracking_event": "paywall_woo"
+    },
+    {
+      "context": "Claim subdomain",
+      "trigger": "Save subdomain",
+      "target_tier": "Pro+",
+      "message_id": "pw_subdomain_proplus",
+      "tracking_event": "paywall_subdomain"
+    },
+    {
+      "context": "Connect custom domain",
+      "trigger": "Save domain",
+      "target_tier": "Pro+",
+      "message_id": "pw_custom_domain_proplus",
+      "tracking_event": "paywall_custom_domain"
+    },
+    {
+      "context": "Audience export",
+      "trigger": "Export CSV",
+      "target_tier": "Pro+",
+      "message_id": "pw_audience_export_proplus",
+      "tracking_event": "paywall_audience_export"
+    },
+    {
+      "context": "Promo credits",
+      "trigger": "Redeem code",
+      "target_tier": "Pro+",
+      "message_id": "pw_promo_proplus",
+      "tracking_event": "paywall_promo"
+    },
+    {
+      "context": "Team shared cookbooks",
+      "trigger": "Open shared",
+      "target_tier": "Teams",
+      "message_id": "pw_shared_cookbooks",
+      "tracking_event": "paywall_shared_cookbooks"
+    },
+    {
+      "context": "Client plan export",
+      "trigger": "Export",
+      "target_tier": "Teams",
+      "message_id": "pw_client_exports",
+      "tracking_event": "paywall_client_exports"
+    },
+    {
+      "context": "White-label branding",
+      "trigger": "Save brand kit",
+      "target_tier": "Teams",
+      "message_id": "pw_white_label",
+      "tracking_event": "paywall_white_label"
+    }
+  ],
+  "sitemaps": {
+    "web": [
+      {
+        "path": "/",
+        "description": "Landing & personalized home",
+        "roles": ["unauthenticated", "member_*"]
+      },
+      { "path": "/search", "description": "Search results", "roles": ["all"] },
+      {
+        "path": "/recipe/:slug",
+        "description": "Public recipe page",
+        "roles": ["all"]
+      },
+      {
+        "path": "/chef/:handle",
+        "description": "Public chef profile",
+        "roles": ["all"]
+      },
+      {
+        "path": "/marketplace",
+        "description": "Products catalog",
+        "roles": ["all"]
+      },
+      {
+        "path": "/planner",
+        "description": "Meal planner",
+        "roles": ["member_plus", "member_pro"]
+      },
+      {
+        "path": "/lists",
+        "description": "Grocery lists",
+        "roles": ["member_plus", "member_pro"]
+      },
+      {
+        "path": "/pantry",
+        "description": "Pantry & spices",
+        "roles": ["member_plus", "member_pro"]
+      },
+      {
+        "path": "/import",
+        "description": "URL import center",
+        "roles": ["member_free", "member_plus", "member_pro"]
+      },
+      {
+        "path": "/households",
+        "description": "Multi-household",
+        "roles": ["member_pro"]
+      },
+      {
+        "path": "/studio",
+        "description": "Creator studio",
+        "roles": ["creator_*", "chef_pro*", "teams_*"]
+      },
+      {
+        "path": "/studio/commerce",
+        "description": "Commerce center",
+        "roles": ["chef_pro", "chef_pro_plus"]
+      },
+      {
+        "path": "/studio/products",
+        "description": "Products mgmt",
+        "roles": ["chef_pro", "chef_pro_plus"]
+      },
+      {
+        "path": "/studio/sponsored",
+        "description": "Sponsored placements",
+        "roles": ["chef_pro", "chef_pro_plus"]
+      },
+      {
+        "path": "/studio/insights",
+        "description": "Advanced insights",
+        "roles": ["chef_pro", "chef_pro_plus"]
+      },
+      {
+        "path": "/studio/pixels",
+        "description": "Pixels/UTMs",
+        "roles": ["chef_pro", "chef_pro_plus"]
+      },
+      {
+        "path": "/studio/integrations",
+        "description": "Shopify/Woo",
+        "roles": ["chef_pro_plus"]
+      },
+      {
+        "path": "/studio/domains",
+        "description": "Domains",
+        "roles": ["chef_pro_plus"]
+      },
+      {
+        "path": "/studio/audience",
+        "description": "Audience export",
+        "roles": ["chef_pro_plus"]
+      },
+      {
+        "path": "/team",
+        "description": "Team dashboard",
+        "roles": ["teams_*"]
+      },
+      {
+        "path": "/team/cookbooks",
+        "description": "Shared cookbooks",
+        "roles": ["teams_*"]
+      },
+      {
+        "path": "/team/exports",
+        "description": "Client plan exports",
+        "roles": ["teams_*"]
+      },
+      {
+        "path": "/team/branding",
+        "description": "White-label branding",
+        "roles": ["teams_owner"]
+      },
+      { "path": "/admin", "description": "Admin home", "roles": ["admin"] },
+      {
+        "path": "/admin/kyc",
+        "description": "Verification & KYC",
+        "roles": ["admin"]
+      },
+      {
+        "path": "/admin/payouts",
+        "description": "Payouts",
+        "roles": ["admin"]
+      },
+      {
+        "path": "/admin/reviews",
+        "description": "Moderate reviews",
+        "roles": ["admin"]
+      },
+      {
+        "path": "/admin/dmca",
+        "description": "DMCA tools",
+        "roles": ["admin"]
+      },
+      {
+        "path": "/admin/duplicates",
+        "description": "Duplicate/merge",
+        "roles": ["admin"]
+      },
+      { "path": "/admin/ads", "description": "Ads review", "roles": ["admin"] },
+      {
+        "path": "/admin/catalog",
+        "description": "Catalog integrity",
+        "roles": ["admin"]
+      }
+    ],
+    "mobile": [
+      {
+        "screen": "Tab: Home",
+        "description": "Discover & following",
+        "roles": ["member_*", "unauthenticated"]
+      },
+      {
+        "screen": "Tab: Search",
+        "description": "Search & filters",
+        "roles": ["all"]
+      },
+      {
+        "screen": "Tab: Planner",
+        "description": "Plan week; batch/daily",
+        "roles": ["member_plus", "member_pro"]
+      },
+      {
+        "screen": "Tab: Saved",
+        "description": "Collections",
+        "roles": ["member_*"]
+      },
+      {
+        "screen": "Tab: Pantry",
+        "description": "Inventory",
+        "roles": ["member_plus", "member_pro"]
+      },
+      {
+        "screen": "Stack: Recipe Detail",
+        "description": "Cook mode",
+        "roles": ["all"]
+      },
+      {
+        "screen": "Stack: Grocery List",
+        "description": "Checkable list & export",
+        "roles": ["member_plus", "member_pro"]
+      },
+      {
+        "screen": "Stack: Import Modal",
+        "description": "URL import",
+        "roles": ["member_*"]
+      },
+      {
+        "screen": "Tab: Studio",
+        "description": "Creator hub",
+        "roles": ["creator_*", "chef_pro*"]
+      },
+      {
+        "screen": "Stack: Commerce Center",
+        "description": "Selling & payouts",
+        "roles": ["chef_pro*"]
+      },
+      {
+        "screen": "Stack: Integrations",
+        "description": "Shopify/Woo",
+        "roles": ["chef_pro_plus"]
+      },
+      {
+        "screen": "Tab: Team",
+        "description": "Team workspace",
+        "roles": ["teams_*"]
+      },
+      {
+        "screen": "Stack: Admin",
+        "description": "Admin tools",
+        "roles": ["admin"]
+      }
+    ]
+  },
+  "system_surfaces": {
+    "email": [
+      "welcome_member",
+      "weekly_planner_reminder",
+      "import_complete",
+      "import_failed",
+      "receipt_purchase",
+      "subscription_invoice",
+      "payout_ready",
+      "payout_issue",
+      "domain_verify_instructions",
+      "domain_connected",
+      "shopify_sync_error",
+      "dmca_notice",
+      "dmca_counter_notice",
+      "ad_booking_confirm",
+      "ad_rejected_policy",
+      "team_invite",
+      "export_ready"
+    ],
+    "push": [
+      "new_recipe_from_followed",
+      "plan_reminder_sunday",
+      "import_finished_push",
+      "purchase_delivered",
+      "sponsored_placement_live",
+      "comment_reply",
+      "rating_received"
+    ],
+    "in_app": [
+      "paywall_modal",
+      "trial_nudge_banner",
+      "import_quota_toast",
+      "macro_override_tooltip",
+      "new_features_what_new",
+      "kyc_required_banner",
+      "sync_connected_snackbar"
+    ],
+    "admin_ops": [
+      "kyc_queue_alert",
+      "payout_hold_alert",
+      "dmca_new_case_alert",
+      "duplicate_cluster_alert",
+      "ads_review_sla_breach",
+      "catalog_policy_violation"
+    ]
+  },
+  "assumptions": [
+    "Payments via Stripe + App Store/Play IAP where required",
+    "Nutrition database available for macro auto-calc",
+    "Search backed by Postgres + full-text index",
+    "Video hosting acceptable within CDN limits",
+    "URL import allowed with user affirmation of rights",
+    "Sponsored placements sold CPC/CPM with basic pacing",
+    "Teams feature is B2B add-on with separate billing",
+    "Pro includes unlimited imports; Plus has monthly quota"
+  ],
+  "open_questions": [
+    "Exact Plus/Pro pricing and annual discounts?",
+    "App Store/IAP routing for paid recipes vs subscriptions?",
+    "Which nutrition DB/licensing and coverage for branded foods?",
+    "Policy on imported content licensing and DMCA safe harbor specifics?",
+    "Minimum viable sponsored placement inventory and pricing model?",
+    "What export formats for print packs (A4/Letter, dark/light)?",
+    "Regionalization: units, languages, currencies priority?",
+    "Promo credit issuance rules and expirations?",
+    "Team seat roles granularity and client data privacy?",
+    "Audience export PII scope and consent flows?"
+  ]
+}
