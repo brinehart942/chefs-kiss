@@ -1,22 +1,18 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
+import { ReactNode } from "react";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { after } from "next/server";
+import { db } from "@/database/drizzle";
+import { users } from "@/database/schema";
+import { eq } from "drizzle-orm";
+
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fontSans = Inter({
   subsets: ["latin"],
+  variable: "--font-sans",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "Chef's Kiss - Discover Amazing Recipes",
-  description:
-    "The ultimate cooking platform for discovering, creating, and sharing recipes",
-};
 
 export default function RootLayout({
   children,
@@ -24,10 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${fontSans.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>

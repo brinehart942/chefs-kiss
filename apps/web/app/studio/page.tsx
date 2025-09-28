@@ -10,7 +10,7 @@ import {
 
 export default function StudioPage() {
   // Get page data from structure.json
-  const pageData = getPageByName("Studio Dashboard");
+  const pageData = getPageByName("Creator Studio");
 
   if (!pageData) {
     return <div>Page not found</div>;
@@ -18,7 +18,7 @@ export default function StudioPage() {
 
   // Generate navigation items dynamically
   const navigationItems = generateNavigationItems(
-    "Studio Dashboard",
+    "Creator Studio",
     "creator_free"
   );
 

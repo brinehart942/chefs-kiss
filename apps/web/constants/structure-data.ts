@@ -87,7 +87,7 @@ export const generateNavigationItems = (currentPage: string, role: string) => {
     "Pixels & UTMs": "bg-purple-500 hover:bg-purple-600",
     "Team Dashboard": "bg-slate-500 hover:bg-slate-600",
     "Shared Cookbooks": "bg-lime-500 hover:bg-lime-600",
-    "Client Exports": "bg-sky-500 hover:bg-sky-600",
+    "Client Plan Exports": "bg-sky-500 hover:bg-sky-600",
     "White-Label Branding": "bg-fuchsia-500 hover:bg-fuchsia-600",
     "Admin Dashboard": "bg-gray-800 hover:bg-gray-900",
     "KYC Verification": "bg-green-800 hover:bg-green-900",

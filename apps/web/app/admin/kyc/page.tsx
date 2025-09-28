@@ -10,14 +10,17 @@ import {
 
 export default function KYCPage() {
   // Get page data from structure.json
-  const pageData = getPageByName("KYC Verification");
+  const pageData = getPageByName("Verification & KYC");
 
   if (!pageData) {
     return <div>Page not found</div>;
   }
 
   // Generate navigation items dynamically
-  const navigationItems = generateNavigationItems("KYC Verification", "admin");
+  const navigationItems = generateNavigationItems(
+    "Verification & KYC",
+    "admin"
+  );
 
   // Generate features from page data
   const features = generateFeatures(pageData);
@@ -27,7 +30,7 @@ export default function KYCPage() {
 
   return (
     <PageLayout
-      title="KYC Verification"
+      title="Verification & KYC"
       description="Verify chefs and payouts"
       backHref="/admin"
       backText="← Back to Admin Dashboard"

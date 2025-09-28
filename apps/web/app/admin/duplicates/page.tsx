@@ -10,17 +10,14 @@ import {
 
 export default function DuplicatesPage() {
   // Get page data from structure.json
-  const pageData = getPageByName("Duplicate Management");
+  const pageData = getPageByName("Duplicate / Merge");
 
   if (!pageData) {
     return <div>Page not found</div>;
   }
 
   // Generate navigation items dynamically
-  const navigationItems = generateNavigationItems(
-    "Duplicate Management",
-    "admin"
-  );
+  const navigationItems = generateNavigationItems("Duplicate / Merge", "admin");
 
   // Generate features from page data
   const features = generateFeatures(pageData);
@@ -30,7 +27,7 @@ export default function DuplicatesPage() {
 
   return (
     <PageLayout
-      title="Duplicate Management"
+      title="Duplicate / Merge"
       description="Deduplicate recipes and content"
       backHref="/admin"
       backText="← Back to Admin Dashboard"

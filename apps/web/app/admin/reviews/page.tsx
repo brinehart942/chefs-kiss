@@ -10,17 +10,14 @@ import {
 
 export default function ReviewsPage() {
   // Get page data from structure.json
-  const pageData = getPageByName("Review Moderation");
+  const pageData = getPageByName("Moderate Reviews");
 
   if (!pageData) {
     return <div>Page not found</div>;
   }
 
   // Generate navigation items dynamically
-  const navigationItems = generateNavigationItems(
-    "Review Moderation",
-    "admin"
-  );
+  const navigationItems = generateNavigationItems("Moderate Reviews", "admin");
 
   // Generate features from page data
   const features = generateFeatures(pageData);
@@ -30,7 +27,7 @@ export default function ReviewsPage() {
 
   return (
     <PageLayout
-      title="Review Moderation"
+      title="Moderate Reviews"
       description="Moderate reviews and ratings"
       backHref="/admin"
       backText="← Back to Admin Dashboard"

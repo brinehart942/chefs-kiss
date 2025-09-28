@@ -10,17 +10,14 @@ import {
 
 export default function PayoutsPage() {
   // Get page data from structure.json
-  const pageData = getPageByName("Payouts Management");
+  const pageData = getPageByName("Payouts");
 
   if (!pageData) {
     return <div>Page not found</div>;
   }
 
   // Generate navigation items dynamically
-  const navigationItems = generateNavigationItems(
-    "Payouts Management",
-    "admin"
-  );
+  const navigationItems = generateNavigationItems("Payouts", "admin");
 
   // Generate features from page data
   const features = generateFeatures(pageData);
@@ -30,7 +27,7 @@ export default function PayoutsPage() {
 
   return (
     <PageLayout
-      title="Payouts Management"
+      title="Payouts"
       description="Manage creator payouts"
       backHref="/admin"
       backText="← Back to Admin Dashboard"

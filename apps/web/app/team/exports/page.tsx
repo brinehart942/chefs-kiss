@@ -10,7 +10,7 @@ import {
 
 export default function ExportsPage() {
   // Get page data from structure.json
-  const pageData = getPageByName("Client Exports");
+  const pageData = getPageByName("Client Plan Exports");
 
   if (!pageData) {
     return <div>Page not found</div>;
@@ -18,7 +18,7 @@ export default function ExportsPage() {
 
   // Generate navigation items dynamically
   const navigationItems = generateNavigationItems(
-    "Client Exports",
+    "Client Plan Exports",
     "teams_owner"
   );
 

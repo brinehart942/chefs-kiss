@@ -10,14 +10,17 @@ import {
 
 export default function AnalyticsPage() {
   // Get page data from structure.json
-  const pageData = getPageByName("Analytics");
+  const pageData = getPageByName("Analytics (Basic)");
 
   if (!pageData) {
     return <div>Page not found</div>;
   }
 
   // Generate navigation items dynamically
-  const navigationItems = generateNavigationItems("Analytics", "creator_free");
+  const navigationItems = generateNavigationItems(
+    "Analytics (Basic)",
+    "creator_free"
+  );
 
   // Generate features from page data
   const features = generateFeatures(pageData);
